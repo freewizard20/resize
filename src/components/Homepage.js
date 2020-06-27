@@ -5,8 +5,10 @@ import './Homepage.css';
 function Homepage() {
     return (
         <div>
-            <img src="logo.png" />
-            <h1>This is homepage</h1>
+            <header>
+                <a href="http://localhost:3000"><img id="logo" src="logo.png" /></a>
+            </header>
+
         </div>
     )
 }
