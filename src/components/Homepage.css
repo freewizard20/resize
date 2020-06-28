@@ -23,7 +23,7 @@ section {
     margin: 20px auto;
 }
 
-.normal-button{
+.add-button{
     background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
     border: 0;
     border-radius: 3px;
@@ -35,14 +35,14 @@ section {
     transition: box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.normal-button:hover{
+.add-button:hover{
     box-shadow: 0 4.5px 7.5px 3px rgba(255,105,135,.5);
 }
 
-.normal-button:focus{
+.add-button:focus{
     border: 0;
 }
 
-.normal-button:active{
+.add-button:active{
     border: 0;
 }
