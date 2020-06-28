@@ -1,0 +1,33 @@
+footer {
+    height: 50px;
+    background-color: #209CEE;
+    color: white;
+}
+
+.copyright {
+    display:inline-block;
+    margin:auto;
+    margin-top:15px;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.footer-link {
+    float:right;
+}
+
+.footer-link>li{
+    display:inline-block;
+    margin: 0px 10px;
+    
+}
+
+.footer-link>li>a{
+    color:white;
+}

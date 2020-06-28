@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 // import { func1, func2 } from '../utils/functions';
 import MobileDetect from 'mobile-detect';
 import './Homepage.css';
+import Mainwork from './Mainwork';
 
 window.mobileAndTabletCheck = function () {
     let check = false;
@@ -12,18 +13,22 @@ window.mobileAndTabletCheck = function () {
 function Homepage() {
     return (
 
-        <div>
-            <header>
-                <a href="http://localhost:3000"><img id="logo" src="logo.png" alt="logo" /></a>
-            </header>
-            <section>
-                <div className="card ad-card-1"></div>
-                {
-                    !window.mobileAndTabletCheck() ? <button id="favorite-button" className="add-button favorites">즐겨찾기에 추가</button>
-                        : <button id="home-button" className="add-button favorites">홈 화면에 추가</button>
-                }
-
-            </section>
+        <div style={{ height: "100%" }}>
+            <div className="content">
+                <header>
+                    <a href="http://localhost:3000"><img id="logo" src="logo.png" alt="logo" /></a>
+                </header>
+                <section>
+                    <div className="header-filler"></div>
+                    <div className="card ad-card-1"></div>
+                    {
+                        !window.mobileAndTabletCheck() ? <button id="favorite-button" className="add-button favorites">즐겨찾기에 추가</button>
+                            : <button id="home-button" className="add-button favorites">홈 화면에 추가</button>
+                    }
+                    <Mainwork />
+                    <div className="card ad-card-2"></div>
+                </section>
+            </div>
         </div>
     )
 }
