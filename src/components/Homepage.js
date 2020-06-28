@@ -10,12 +10,6 @@ window.mobileAndTabletCheck = function () {
 };
 
 function Homepage() {
-    // const [didRender, setDidRender] = useState(0);
-    // // useEffect(() => {
-    // //     // check mobile browser
-
-    // //     setDidRender(1);
-    // // }, [])
     return (
 
         <div>
@@ -23,10 +17,12 @@ function Homepage() {
                 <a href="http://localhost:3000"><img id="logo" src="logo.png" alt="logo" /></a>
             </header>
             <section>
+                <div className="card ad-card-1"></div>
                 {
                     !window.mobileAndTabletCheck() ? <button id="favorite-button" className="add-button favorites">즐겨찾기에 추가</button>
                         : <button id="home-button" className="add-button favorites">홈 화면에 추가</button>
                 }
+
             </section>
         </div>
     )
