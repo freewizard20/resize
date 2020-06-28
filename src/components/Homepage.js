@@ -24,7 +24,7 @@ function Homepage() {
             </header>
             <section>
                 {
-                    !window.mobileAndTabletCheck ? <button id="favorite-button" className="add-button favorites">즐겨찾기에 추가</button>
+                    !window.mobileAndTabletCheck() ? <button id="favorite-button" className="add-button favorites">즐겨찾기에 추가</button>
                         : <button id="home-button" className="add-button favorites">홈 화면에 추가</button>
                 }
             </section>
