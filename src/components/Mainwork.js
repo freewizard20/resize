@@ -11,6 +11,7 @@ export class Mainwork extends Component {
 
         this.fileInputRef = React.createRef();
         this.onFilesAdded = this.onFilesAdded.bind(this);
+        this.openFileDialog = this.openFileDialog.bind(this);
     }
 
     onFilesAdded(e) {
@@ -27,6 +28,10 @@ export class Mainwork extends Component {
         return array;
     }
 
+    openFileDialog() {
+        this.fileInputRef.current.click();
+    }
+
 
     render() {
         return (
@@ -36,7 +41,7 @@ export class Mainwork extends Component {
                     <img alt="upload" className="Icon" src="./img/cloud.png" />
                     <input ref={this.fileInputRef} className="FileInput" type="file" multiple onChange={this.onFilesAdded} />
                     <span>여기에 파일을 놓아 주세요.</span>
-                    <button class="upload-button">또는 파일 선택하기</button>
+                    <button class="upload-button" onClick={this.openFileDialog}>또는 파일 선택하기</button>
                 </div>
             </div >
         )
