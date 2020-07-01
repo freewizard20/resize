@@ -1,51 +1,80 @@
-import React, { Component } from 'react'
-import './Mainwork.css'
+import React, { Component } from "react";
+import "./Mainwork.css";
 
 export class Mainwork extends Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props);
 
-        this.state = {
+    this.state = {
+      highlight: false,
+    };
 
-        }
+    this.fileInputRef = React.createRef();
+    this.onFilesAdded = this.onFilesAdded.bind(this);
+    this.openFileDialog = this.openFileDialog.bind(this);
+  }
 
-        this.fileInputRef = React.createRef();
-        this.onFilesAdded = this.onFilesAdded.bind(this);
-        this.openFileDialog = this.openFileDialog.bind(this);
+  componentDidMount() {
+    document.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      this.setState({ highlight: true });
+    });
+
+    // document.addEventListener("dragleave", (e) => {
+    //   e.preventDefault();
+    //   this.setState({ highlight: false });
+    // });
+
+    document.addEventListener("drop", (e) => {
+      e.preventDefault();
+      const files = e.dataTransfer.files;
+      const array = this.fileListToArray(files);
+      this.onFilesAdded(array);
+      this.setState({ highlight: false });
+    });
+  }
+
+  onFilesAdded(e) {
+    const files = e.target.files;
+    const array = this.fileListToArray(files);
+    console.log(array);
+  }
+
+  fileListToArray(list) {
+    const array = [];
+    for (let i = 0; i < list.length; i++) {
+      array.push(list.item(i));
     }
+    return array;
+  }
 
-    onFilesAdded(e) {
-        const files = e.target.files;
-        const array = this.fileListToArray(files);
-        console.log(array);
-    }
+  openFileDialog() {
+    this.fileInputRef.current.click();
+  }
 
-    fileListToArray(list) {
-        const array = [];
-        for (let i = 0; i < list.length; i++) {
-            array.push(list.item(i));
-        }
-        return array;
-    }
-
-    openFileDialog() {
-        this.fileInputRef.current.click();
-    }
-
-
-    render() {
-        return (
-            <div className="card main-work" >
-                <div className="whole"></div>
-                <div className="dropzone-dummy">
-                    <img alt="upload" className="Icon" src="./img/cloud.png" />
-                    <input ref={this.fileInputRef} className="FileInput" type="file" multiple onChange={this.onFilesAdded} />
-                    <span>여기에 파일을 놓아 주세요.</span>
-                    <button class="upload-button" onClick={this.openFileDialog}>또는 파일 선택하기</button>
-                </div>
-            </div >
-        )
-    }
+  render() {
+    return (
+      <div className="card main-work">
+        <div
+          className={`whole ${this.state.highlight ? "Highlight" : ""}`}
+        ></div>
+        <div className="dropzone-dummy">
+          <img alt="upload" className="Icon" src="./img/cloud.png" />
+          <input
+            ref={this.fileInputRef}
+            className="FileInput"
+            type="file"
+            multiple
+            onChange={this.onFilesAdded}
+          />
+          <span>여기에 파일을 놓아 주세요.</span>
+          <button className="upload-button" onClick={this.openFileDialog}>
+            또는 파일 선택하기
+          </button>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default Mainwork
+export default Mainwork;
