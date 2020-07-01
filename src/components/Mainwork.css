@@ -5,7 +5,7 @@
   padding-right: 10px;
 }
 
-/* .whole {
+.whole {
   display: none;
   position: fixed;
   height: 100vh;
@@ -15,7 +15,11 @@
   top: 0;
   left: 0;
   z-index: 100;
-} */
+}
+
+.whole-show {
+  display: block;
+}
 
 .FileInput {
   display: none;

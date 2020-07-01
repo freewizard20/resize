@@ -17,15 +17,25 @@ export class Mainwork extends Component {
     this.onDrop = this.onDrop.bind(this);
   }
 
-  componentDidMount() {
-    document.addEventListener("drop", (e) => {
-      e.preventDefault();
-      const files = e.dataTransfer.files;
-      const array = this.fileListToArray(files);
-      this.onFilesAdded(array);
-      this.setState({ highlight: false });
-    });
-  }
+  // componentDidMount() {
+  //   document.addEventListener("dragover", (e) => {
+  //     e.preventDefault();
+  //     this.setState({ highlight: true });
+  //   });
+
+  //   document.addEventListener("dragleave", (e) => {
+  //     e.preventDefault();
+  //     this.setState({ highlight: false });
+  //   });
+
+  //   document.addEventListener("drop", (e) => {
+  //     e.preventDefault();
+  //     const files = e.dataTransfer.files;
+  //     const array = this.fileListToArray(files);
+  //     this.onFilesAdded(array);
+  //     this.setState({ highlight: false });
+  //   });
+  // }
 
   onDragOver(e) {
     e.preventDefault();
@@ -64,6 +74,9 @@ export class Mainwork extends Component {
   render() {
     return (
       <div className="card main-work">
+        {/* <div
+          className={`whole ${this.state.highlight ? "whole-show" : ""}`}
+        ></div> */}
         <div
           className={`dropzone-dummy ${
             this.state.highlight ? "Highlight" : ""
