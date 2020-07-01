@@ -10,11 +10,17 @@
   position: fixed;
   height: 100vh;
   width: 100vw;
-  background-color: #333;
-  opacity: 0.5;
+  background-color: #222;
+  opacity: 0.75;
   top: 0;
   left: 0;
   z-index: 100;
+  text-align: center;
+  color: white;
+  font-size: 35px;
+  vertical-align: middle;
+  line-height: 90vh;
+  pointer-events: none;
 }
 
 .whole-show {

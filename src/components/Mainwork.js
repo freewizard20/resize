@@ -12,51 +12,66 @@ export class Mainwork extends Component {
     this.fileInputRef = React.createRef();
     this.onFilesAdded = this.onFilesAdded.bind(this);
     this.openFileDialog = this.openFileDialog.bind(this);
-    this.onDragLeave = this.onDragLeave.bind(this);
-    this.onDragOver = this.onDragOver.bind(this);
-    this.onDrop = this.onDrop.bind(this);
+    // this.onDragLeave = this.onDragLeave.bind(this);
+    // this.onDragOver = this.onDragOver.bind(this);
+    // this.onDrop = this.onDrop.bind(this);
   }
 
-  // componentDidMount() {
-  //   document.addEventListener("dragover", (e) => {
-  //     e.preventDefault();
-  //     this.setState({ highlight: true });
-  //   });
+  componentDidMount() {
+    document.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      this.setState({ highlight: true });
+      document.body.style.pointerEvents = "none";
+    });
 
-  //   document.addEventListener("dragleave", (e) => {
-  //     e.preventDefault();
-  //     this.setState({ highlight: false });
-  //   });
+    document.addEventListener("dragleave", (e) => {
+      e.preventDefault();
+      this.setState({ highlight: false });
+    });
 
-  //   document.addEventListener("drop", (e) => {
-  //     e.preventDefault();
-  //     const files = e.dataTransfer.files;
-  //     const array = this.fileListToArray(files);
-  //     this.onFilesAdded(array);
-  //     this.setState({ highlight: false });
-  //   });
+    document.addEventListener("drop", (e) => {
+      e.preventDefault();
+      this.onFilesAdded(e);
+      this.setState({ highlight: false });
+      document.body.style.pointerEvents = "auto";
+    });
+
+    document.addEventListener("mouseover", () => {
+      if (!this.state.highlight) {
+        document.body.style.pointerEvents = "auto";
+      }
+    });
+  }
+
+  // onDragOver(e) {
+  //   e.preventDefault();
+  //   this.setState({ highlight: true });
   // }
 
-  onDragOver(e) {
-    e.preventDefault();
-    this.setState({ highlight: true });
-  }
+  // onDragLeave() {
+  //   this.setState({ highlight: false });
+  // }
 
-  onDragLeave() {
-    this.setState({ highlight: false });
-  }
-
-  onDrop(e) {
-    e.preventDefault();
-    const files = e.dataTransfer.files;
-    const array = this.fileListToArray(files);
-    this.onFilesAdded(array);
-    this.setState({ highlight: false });
-  }
+  // onDrop(e) {
+  //   e.preventDefault();
+  //   const files = e.dataTransfer.files;
+  //   const array = this.fileListToArray(files);
+  //   this.onFilesAdded(array);
+  //   this.setState({ highlight: false });
+  // }
 
   // DO WORK HERE
   onFilesAdded(e) {
-    console.log(e);
+    let array;
+    if (e.dataTransfer === undefined) {
+      const files = e.target.files;
+      array = this.fileListToArray(files);
+      console.log(array);
+    } else {
+      const files = e.dataTransfer.files;
+      array = this.fileListToArray(files);
+      console.log(array);
+    }
   }
 
   fileListToArray(list) {
@@ -74,16 +89,13 @@ export class Mainwork extends Component {
   render() {
     return (
       <div className="card main-work">
-        {/* <div
-          className={`whole ${this.state.highlight ? "whole-show" : ""}`}
-        ></div> */}
+        <div className={`whole ${this.state.highlight ? "whole-show" : ""}`}>
+          여기에 파일을 올려 주세요
+        </div>
         <div
           className={`dropzone-dummy ${
             this.state.highlight ? "Highlight" : ""
           }`}
-          onDragOver={this.onDragOver}
-          onDragLeave={this.onDragLeave}
-          onDrop={this.onDrop}
         >
           <img alt="upload" className="Icon" src="./img/cloud.png" />
           <input
@@ -93,7 +105,7 @@ export class Mainwork extends Component {
             multiple
             onChange={this.onFilesAdded}
           />
-          <span>여기에 파일을 놓아 주세요.</span>
+          <span>여기에 파일을 올려 주세요.</span>
           <button className="upload-button" onClick={this.openFileDialog}>
             또는 파일 선택하기
           </button>
