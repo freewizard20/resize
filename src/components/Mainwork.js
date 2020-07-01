@@ -12,19 +12,12 @@ export class Mainwork extends Component {
     this.fileInputRef = React.createRef();
     this.onFilesAdded = this.onFilesAdded.bind(this);
     this.openFileDialog = this.openFileDialog.bind(this);
+    this.onDragLeave = this.onDragLeave.bind(this);
+    this.onDragOver = this.onDragOver.bind(this);
+    this.onDrop = this.onDrop.bind(this);
   }
 
   componentDidMount() {
-    document.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      this.setState({ highlight: true });
-    });
-
-    // document.addEventListener("dragleave", (e) => {
-    //   e.preventDefault();
-    //   this.setState({ highlight: false });
-    // });
-
     document.addEventListener("drop", (e) => {
       e.preventDefault();
       const files = e.dataTransfer.files;
@@ -34,10 +27,26 @@ export class Mainwork extends Component {
     });
   }
 
-  onFilesAdded(e) {
-    const files = e.target.files;
+  onDragOver(e) {
+    e.preventDefault();
+    this.setState({ highlight: true });
+  }
+
+  onDragLeave() {
+    this.setState({ highlight: false });
+  }
+
+  onDrop(e) {
+    e.preventDefault();
+    const files = e.dataTransfer.files;
     const array = this.fileListToArray(files);
-    console.log(array);
+    this.onFilesAdded(array);
+    this.setState({ highlight: false });
+  }
+
+  // DO WORK HERE
+  onFilesAdded(e) {
+    console.log(e);
   }
 
   fileListToArray(list) {
@@ -56,9 +65,13 @@ export class Mainwork extends Component {
     return (
       <div className="card main-work">
         <div
-          className={`whole ${this.state.highlight ? "Highlight" : ""}`}
-        ></div>
-        <div className="dropzone-dummy">
+          className={`dropzone-dummy ${
+            this.state.highlight ? "Highlight" : ""
+          }`}
+          onDragOver={this.onDragOver}
+          onDragLeave={this.onDragLeave}
+          onDrop={this.onDrop}
+        >
           <img alt="upload" className="Icon" src="./img/cloud.png" />
           <input
             ref={this.fileInputRef}
