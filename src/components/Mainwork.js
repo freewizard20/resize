@@ -12,11 +12,15 @@ export class Mainwork extends Component {
       originalHeight: 0,
       name: "",
       loaded: false,
+      changeWidth: "",
+      changeHeight: "",
+      fixedRatio: false,
     };
 
     this.fileInputRef = React.createRef();
     this.onFilesAdded = this.onFilesAdded.bind(this);
     this.openFileDialog = this.openFileDialog.bind(this);
+    this.handleFixed = this.handleFixed.bind(this);
     // this.onDragLeave = this.onDragLeave.bind(this);
     // this.onDragOver = this.onDragOver.bind(this);
     // this.onDrop = this.onDrop.bind(this);
@@ -123,6 +127,48 @@ export class Mainwork extends Component {
     this.fileInputRef.current.click();
   }
 
+  handleChangeWidth = ({ target }) => {
+    this.setState({
+      changeWidth: target.value,
+      changeHeight: this.state.fixedRatio
+        ? Math.round(
+            target.value *
+              (this.state.originalHeight / this.state.originalWidth)
+          ) === 0
+          ? ""
+          : Math.round(
+              target.value *
+                (this.state.originalHeight / this.state.originalWidth)
+            )
+        : this.state.changeHeight,
+    });
+  };
+
+  handleChangeHeight = ({ target }) => {
+    this.setState({
+      changeHeight: target.value,
+      changeWidth: this.state.fixedRatio
+        ? Math.round(
+            (target.value * this.state.originalWidth) /
+              this.state.originalHeight
+          ) === 0
+          ? ""
+          : Math.round(
+              (target.value * this.state.originalWidth) /
+                this.state.originalHeight
+            )
+        : this.state.changeWidth,
+    });
+  };
+
+  handleFixed() {
+    if (this.state.fixedRatio) {
+      this.setState({ fixedRatio: false });
+    } else {
+      this.setState({ fixedRatio: true });
+    }
+  }
+
   render() {
     return (
       <div className="card main-work">
@@ -172,6 +218,8 @@ export class Mainwork extends Component {
                   name="widthChange"
                   className="details-change"
                   id="widthChange"
+                  value={this.state.changeWidth}
+                  onChange={this.handleChangeWidth}
                 />
                 <span id="middle-x">x</span>
                 <input
@@ -179,9 +227,18 @@ export class Mainwork extends Component {
                   name="heightChange"
                   className="details-change"
                   id="heightChange"
+                  value={this.state.changeHeight}
+                  onChange={this.handleChangeHeight}
                 />
               </div>
-              <button className="details-button">비율 고정하기</button>
+              <button
+                className={`details-button ${
+                  this.state.fixedRatio ? "details-button-clicked" : ""
+                }`}
+                onClick={this.handleFixed}
+              >
+                비율 고정하기
+              </button>
               <br />
               <button className="details-button details-download">
                 다운로드

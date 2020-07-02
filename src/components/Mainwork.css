@@ -142,6 +142,10 @@
   width: 180px;
 }
 
+.details-button-clicked {
+  background-color: red;
+}
+
 #widthChange {
   margin-right: 20px;
 }
