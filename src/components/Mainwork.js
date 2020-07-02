@@ -11,6 +11,7 @@ export class Mainwork extends Component {
       originalWidth: 0,
       originalHeight: 0,
       name: "",
+      loaded: false,
     };
 
     this.fileInputRef = React.createRef();
@@ -79,12 +80,23 @@ export class Mainwork extends Component {
       // console.log(array);
     }
     let fr = new FileReader();
-    fr.onload = function () {
-      console.log(fr);
-      document.getElementById("thumbnail1").src = fr.result;
-      for (let i = 0; i < 10000000; i++) {}
-      console.log(document.getElementById("thumbnail1").naturalHeight);
-      console.log(document.getElementById("thumbnail1").naturalWidth);
+    fr.onload = () => {
+      this.setState(() => {
+        return {
+          loaded: true,
+        };
+      });
+      let img = document.getElementById("thumbnail1");
+      img.src = fr.result;
+      img.onload = () => {
+        this.setState(() => {
+          return {
+            name: array[0].name,
+            originalHeight: img.naturalHeight,
+            originalWidth: img.naturalWidth,
+          };
+        });
+      };
     };
     fr.readAsDataURL(array[0]);
   }
@@ -125,46 +137,50 @@ export class Mainwork extends Component {
             또는 파일 선택하기
           </button>
         </div>
-        <div className="details">
-          <div className="details-left">
-            <div className="details-text">
-              <span className="details-dimension">
-                {this.state.originalWidth} x {this.state.originalHeight}}
-              </span>
-              <span className="details-name">캡처.png</span>
+        {this.state.loaded ? (
+          <div className="details">
+            <div className="details-left">
+              <div className="details-text">
+                <span className="details-dimension">
+                  {this.state.originalWidth} x {this.state.originalHeight}
+                </span>
+                <span className="details-name">{this.state.name}</span>
+              </div>
+              <div className="details-thumbnail-wrapper">
+                <img id="thumbnail1" className="details-thumbnail" src="" />
+              </div>
             </div>
-            <div className="details-thumbnail-wrapper">
-              <img id="thumbnail1" className="details-thumbnail" src="" />
-            </div>
-          </div>
-          <div className="details-middle">
-            <ArrowRightAltIcon
-              style={{ color: "#75daff", fontSize: 58, margin: "0px auto" }}
-            />
-          </div>
-          <div className="details-right">
-            <div className="details-change-wrapper">
-              <input
-                type="number"
-                name="widthChange"
-                className="details-change"
-                id="widthChange"
-              />
-              <span id="middle-x">x</span>
-              <input
-                type="number"
-                name="heightChange"
-                className="details-change"
-                id="heightChange"
+            <div className="details-middle">
+              <ArrowRightAltIcon
+                style={{ color: "#75daff", fontSize: 58, margin: "0px auto" }}
               />
             </div>
-            <button className="details-button">비율 고정하기</button>
-            <br />
-            <button className="details-button details-download">
-              다운로드
-            </button>
+            <div className="details-right">
+              <div className="details-change-wrapper">
+                <input
+                  type="number"
+                  name="widthChange"
+                  className="details-change"
+                  id="widthChange"
+                />
+                <span id="middle-x">x</span>
+                <input
+                  type="number"
+                  name="heightChange"
+                  className="details-change"
+                  id="heightChange"
+                />
+              </div>
+              <button className="details-button">비율 고정하기</button>
+              <br />
+              <button className="details-button details-download">
+                다운로드
+              </button>
+            </div>
           </div>
-        </div>
+        ) : (
+          <></>
+        )}
       </div>
     );
   }
