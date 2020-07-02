@@ -133,12 +133,12 @@ export class Mainwork extends Component {
           </div>
           <div className="details-right">
             <div className="details-change-wrapper">
-              <input type="number" name="widthChange" className="details-change" id="widthChange" />
-            x
-            <input type="number" name="heightChange" className="details-change" id="heightChange" />
+              <input type="number" name="widthChange" className="details-change" id="widthChange" style={{ marginRight: "5px" }} />
+              <span style={{ fontSize: "18px" }}>x</span>
+              <input type="number" name="heightChange" className="details-change" id="heightChange" style={{ marginLeft: "5px" }} />
             </div>
-            <button className="details-button">비율 고정하기</button>
-            <button className="details-button">다운로드</button>
+            <button className="details-button">비율 고정하기</button><br />
+            <button className="details-button details-download">다운로드</button>
           </div>
         </div>
       </div>
