@@ -75,11 +75,11 @@ export class Mainwork extends Component {
       array = this.fileListToArray(files);
       // console.log(array);
     }
-    // let fr = new FileReader();
-    // fr.onload = function () {
-    //   document.getElementById('outimage').src = fr.result;
-    // }
-    // fr.readAsDataURL(array[0]);
+    let fr = new FileReader();
+    fr.onload = function () {
+      document.getElementById('thumbnail1').src = fr.result;
+    }
+    fr.readAsDataURL(array[0]);
   }
 
   fileListToArray(list) {
@@ -125,7 +125,7 @@ export class Mainwork extends Component {
               <span className="details-name">캡처.png</span>
             </div>
             <div className="details-thumbnail-wrapper">
-              <img className="details-thumbnail" src="" />
+              <img id="thumbnail1" className="details-thumbnail" src="" />
             </div>
           </div>
           <div className="details-middle">
