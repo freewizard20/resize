@@ -99,6 +99,8 @@ export class Mainwork extends Component {
             name: outputname,
             originalHeight: img.naturalHeight,
             originalWidth: img.naturalWidth,
+            changeHeight: "",
+            changeWidth: ""
           };
         });
       };
@@ -132,14 +134,14 @@ export class Mainwork extends Component {
       changeWidth: target.value,
       changeHeight: this.state.fixedRatio
         ? Math.round(
-            target.value *
-              (this.state.originalHeight / this.state.originalWidth)
-          ) === 0
+          target.value *
+          (this.state.originalHeight / this.state.originalWidth)
+        ) === 0
           ? ""
           : Math.round(
-              target.value *
-                (this.state.originalHeight / this.state.originalWidth)
-            )
+            target.value *
+            (this.state.originalHeight / this.state.originalWidth)
+          )
         : this.state.changeHeight,
     });
   };
@@ -149,14 +151,14 @@ export class Mainwork extends Component {
       changeHeight: target.value,
       changeWidth: this.state.fixedRatio
         ? Math.round(
-            (target.value * this.state.originalWidth) /
-              this.state.originalHeight
-          ) === 0
+          (target.value * this.state.originalWidth) /
+          this.state.originalHeight
+        ) === 0
           ? ""
           : Math.round(
-              (target.value * this.state.originalWidth) /
-                this.state.originalHeight
-            )
+            (target.value * this.state.originalWidth) /
+            this.state.originalHeight
+          )
         : this.state.changeWidth,
     });
   };
@@ -178,7 +180,7 @@ export class Mainwork extends Component {
         <div
           className={`dropzone-dummy ${
             this.state.highlight ? "Highlight" : ""
-          }`}
+            }`}
         >
           <img alt="upload" className="Icon" src="./img/cloud.png" />
           <input
@@ -234,7 +236,7 @@ export class Mainwork extends Component {
               <button
                 className={`details-button ${
                   this.state.fixedRatio ? "details-button-clicked" : ""
-                }`}
+                  }`}
                 onClick={this.handleFixed}
               >
                 비율 고정하기
@@ -246,8 +248,8 @@ export class Mainwork extends Component {
             </div>
           </div>
         ) : (
-          <></>
-        )}
+            <></>
+          )}
       </div>
     );
   }
