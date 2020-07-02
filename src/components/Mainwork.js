@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, forwardRef } from "react";
+import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import "./Mainwork.css";
 
 export class Mainwork extends Component {
@@ -65,13 +66,20 @@ export class Mainwork extends Component {
     let array;
     if (e.dataTransfer === undefined) {
       const files = e.target.files;
+      // console.log(files);
       array = this.fileListToArray(files);
-      console.log(array);
+      // console.log(array);
     } else {
       const files = e.dataTransfer.files;
+      // console.log(files);
       array = this.fileListToArray(files);
-      console.log(array);
+      // console.log(array);
     }
+    // let fr = new FileReader();
+    // fr.onload = function () {
+    //   document.getElementById('outimage').src = fr.result;
+    // }
+    // fr.readAsDataURL(array[0]);
   }
 
   fileListToArray(list) {
@@ -95,7 +103,7 @@ export class Mainwork extends Component {
         <div
           className={`dropzone-dummy ${
             this.state.highlight ? "Highlight" : ""
-          }`}
+            }`}
         >
           <img alt="upload" className="Icon" src="./img/cloud.png" />
           <input
@@ -109,6 +117,29 @@ export class Mainwork extends Component {
           <button className="upload-button" onClick={this.openFileDialog}>
             또는 파일 선택하기
           </button>
+        </div>
+        <div className="details">
+          <div className="details-left">
+            <div className="details-text">
+              <span clssName="details-dimension">1620 x 1320</span>
+              <span className="details-name">캡처.png</span>
+            </div>
+            <div className="details-thumbnail-wrapper">
+              <img className="details-thumbnail" src="" />
+            </div>
+          </div>
+          <div className="details-middle">
+            <ArrowRightAltIcon style={{ color: "#75daff", fontSize: 58, margin: "0px auto" }} />
+          </div>
+          <div className="details-right">
+            <div className="details-change-wrapper">
+              <input type="number" name="widthChange" className="details-change" id="widthChange" />
+            x
+            <input type="number" name="heightChange" className="details-change" id="heightChange" />
+            </div>
+            <button className="details-button">비율 고정하기</button>
+            <button className="details-button">다운로드</button>
+          </div>
         </div>
       </div>
     );
