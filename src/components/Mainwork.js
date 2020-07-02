@@ -15,12 +15,15 @@ export class Mainwork extends Component {
       changeWidth: "",
       changeHeight: "",
       fixedRatio: false,
+      fileObject: {},
+      file: ""
     };
 
     this.fileInputRef = React.createRef();
     this.onFilesAdded = this.onFilesAdded.bind(this);
     this.openFileDialog = this.openFileDialog.bind(this);
     this.handleFixed = this.handleFixed.bind(this);
+    this.handleDownload = this.handleDownload.bind(this);
     // this.onDragLeave = this.onDragLeave.bind(this);
     // this.onDragOver = this.onDragOver.bind(this);
     // this.onDrop = this.onDrop.bind(this);
@@ -91,6 +94,7 @@ export class Mainwork extends Component {
         };
       });
       let img = document.getElementById("thumbnail1");
+      if (img === null) return;
       img.src = fr.result;
       let outputname = this.shorten(array[0].name);
       img.onload = () => {
@@ -100,7 +104,9 @@ export class Mainwork extends Component {
             originalHeight: img.naturalHeight,
             originalWidth: img.naturalWidth,
             changeHeight: "",
-            changeWidth: ""
+            changeWidth: "",
+            file: fr.result,
+            fileObject: array[0],
           };
         });
       };
@@ -169,6 +175,22 @@ export class Mainwork extends Component {
     } else {
       this.setState({ fixedRatio: true });
     }
+  }
+
+  handleDownload() {
+    // console.log(this.state.file);
+    // console.log(this.state.fileObject);
+    // if changewidth and changeheight fits
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext("2d");
+    canvas.width = this.state.changeWidth;
+    canvas.height = this.state.changeHeight;
+    ctx.drawImage(document.getElementById('thumbnail1'), 0, 0, this.state.changeWidth, this.state.changeHeight);
+    const resultURL = canvas.toDataURL("image/tiff");
+    const a = document.createElement("a");
+    a.href = resultURL;
+    a.setAttribute("download", this.state.name);
+    a.click();
   }
 
   render() {
@@ -242,7 +264,7 @@ export class Mainwork extends Component {
                 비율 고정하기
               </button>
               <br />
-              <button className="details-button details-download">
+              <button className="details-button details-download" onClick={this.handleDownload}>
                 다운로드
               </button>
             </div>
