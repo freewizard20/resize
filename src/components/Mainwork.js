@@ -88,10 +88,11 @@ export class Mainwork extends Component {
       });
       let img = document.getElementById("thumbnail1");
       img.src = fr.result;
+      let outputname = this.shorten(array[0].name);
       img.onload = () => {
         this.setState(() => {
           return {
-            name: array[0].name,
+            name: outputname,
             originalHeight: img.naturalHeight,
             originalWidth: img.naturalWidth,
           };
@@ -99,6 +100,15 @@ export class Mainwork extends Component {
       };
     };
     fr.readAsDataURL(array[0]);
+  }
+
+  shorten(given) {
+    if (given.length < 12) {
+      return given;
+    }
+    let extension = given.substr(given.length - 4);
+    let name = given.substring(0, 7);
+    return name + ".." + extension;
   }
 
   fileListToArray(list) {
