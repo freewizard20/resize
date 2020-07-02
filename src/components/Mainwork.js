@@ -1,5 +1,5 @@
 import React, { Component, forwardRef } from "react";
-import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
+import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 import "./Mainwork.css";
 
 export class Mainwork extends Component {
@@ -8,6 +8,9 @@ export class Mainwork extends Component {
 
     this.state = {
       highlight: false,
+      originalWidth: 0,
+      originalHeight: 0,
+      name: "",
     };
 
     this.fileInputRef = React.createRef();
@@ -77,8 +80,12 @@ export class Mainwork extends Component {
     }
     let fr = new FileReader();
     fr.onload = function () {
-      document.getElementById('thumbnail1').src = fr.result;
-    }
+      console.log(fr);
+      document.getElementById("thumbnail1").src = fr.result;
+      for (let i = 0; i < 10000000; i++) {}
+      console.log(document.getElementById("thumbnail1").naturalHeight);
+      console.log(document.getElementById("thumbnail1").naturalWidth);
+    };
     fr.readAsDataURL(array[0]);
   }
 
@@ -103,7 +110,7 @@ export class Mainwork extends Component {
         <div
           className={`dropzone-dummy ${
             this.state.highlight ? "Highlight" : ""
-            }`}
+          }`}
         >
           <img alt="upload" className="Icon" src="./img/cloud.png" />
           <input
@@ -121,7 +128,9 @@ export class Mainwork extends Component {
         <div className="details">
           <div className="details-left">
             <div className="details-text">
-              <span clssName="details-dimension">1620 x 1320</span>
+              <span className="details-dimension">
+                {this.state.originalWidth} x {this.state.originalHeight}}
+              </span>
               <span className="details-name">캡처.png</span>
             </div>
             <div className="details-thumbnail-wrapper">
@@ -129,16 +138,31 @@ export class Mainwork extends Component {
             </div>
           </div>
           <div className="details-middle">
-            <ArrowRightAltIcon style={{ color: "#75daff", fontSize: 58, margin: "0px auto" }} />
+            <ArrowRightAltIcon
+              style={{ color: "#75daff", fontSize: 58, margin: "0px auto" }}
+            />
           </div>
           <div className="details-right">
             <div className="details-change-wrapper">
-              <input type="number" name="widthChange" className="details-change" id="widthChange" />
+              <input
+                type="number"
+                name="widthChange"
+                className="details-change"
+                id="widthChange"
+              />
               <span id="middle-x">x</span>
-              <input type="number" name="heightChange" className="details-change" id="heightChange" />
+              <input
+                type="number"
+                name="heightChange"
+                className="details-change"
+                id="heightChange"
+              />
             </div>
-            <button className="details-button">비율 고정하기</button><br />
-            <button className="details-button details-download">다운로드</button>
+            <button className="details-button">비율 고정하기</button>
+            <br />
+            <button className="details-button details-download">
+              다운로드
+            </button>
           </div>
         </div>
       </div>
