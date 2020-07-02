@@ -122,8 +122,8 @@
 }
 
 .details-change{
-  font-size: 18px;
-  width: 45px;
+  font-size: 20px;
+  width: 65px;
   border: 1px solid black;
   border-radius: 4px;
 }
@@ -142,6 +142,18 @@
   width: 180px;
 }
 
+#widthChange{
+  margin-right:20px;
+}
+
+#heightChange{
+  margin-left: 20px;
+}
+
+#middle-x{
+  font-size: 21px;
+}
+
 
 @media screen and (max-width: 720px) {
   .details-name{
@@ -155,5 +167,18 @@
   .details-button {
     width: 120px;
     font-size: 16px;
+  }
+
+  #widthChange{
+    margin-right: 5px;
+  }
+
+  #heightChange{
+    margin-left: 5px;
+  }
+
+  .details-change{
+    font-size: 18px;
+    width: 45px;
   }
 }
