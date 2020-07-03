@@ -16,7 +16,8 @@ export class Mainwork extends Component {
       changeHeight: "",
       fixedRatio: false,
       fileObject: {},
-      file: ""
+      file: "",
+      extension: ""
     };
 
     this.fileInputRef = React.createRef();
@@ -107,6 +108,7 @@ export class Mainwork extends Component {
             changeWidth: "",
             file: fr.result,
             fileObject: array[0],
+            extension: this.state.name.substr(this.state.name.length - 3).toLowerCase()
           };
         });
       };
@@ -186,7 +188,7 @@ export class Mainwork extends Component {
     canvas.width = this.state.changeWidth;
     canvas.height = this.state.changeHeight;
     ctx.drawImage(document.getElementById('thumbnail1'), 0, 0, this.state.changeWidth, this.state.changeHeight);
-    const resultURL = canvas.toDataURL("image/tiff");
+    const resultURL = canvas.toDataURL("image/" + this.state.extension);
     const a = document.createElement("a");
     a.href = resultURL;
     a.setAttribute("download", this.state.name);
