@@ -17,7 +17,7 @@ export class Mainwork extends Component {
       fixedRatio: false,
       fileObject: {},
       file: "",
-      extension: ""
+      extension: "",
     };
 
     this.fileInputRef = React.createRef();
@@ -108,7 +108,9 @@ export class Mainwork extends Component {
             changeWidth: "",
             file: fr.result,
             fileObject: array[0],
-            extension: this.state.name.substr(this.state.name.length - 3).toLowerCase()
+            extension: this.state.name
+              .substr(this.state.name.length - 3)
+              .toLowerCase(),
           };
         });
       };
@@ -142,14 +144,14 @@ export class Mainwork extends Component {
       changeWidth: target.value,
       changeHeight: this.state.fixedRatio
         ? Math.round(
-          target.value *
-          (this.state.originalHeight / this.state.originalWidth)
-        ) === 0
+            target.value *
+              (this.state.originalHeight / this.state.originalWidth)
+          ) === 0
           ? ""
           : Math.round(
-            target.value *
-            (this.state.originalHeight / this.state.originalWidth)
-          )
+              target.value *
+                (this.state.originalHeight / this.state.originalWidth)
+            )
         : this.state.changeHeight,
     });
   };
@@ -159,14 +161,14 @@ export class Mainwork extends Component {
       changeHeight: target.value,
       changeWidth: this.state.fixedRatio
         ? Math.round(
-          (target.value * this.state.originalWidth) /
-          this.state.originalHeight
-        ) === 0
+            (target.value * this.state.originalWidth) /
+              this.state.originalHeight
+          ) === 0
           ? ""
           : Math.round(
-            (target.value * this.state.originalWidth) /
-            this.state.originalHeight
-          )
+              (target.value * this.state.originalWidth) /
+                this.state.originalHeight
+            )
         : this.state.changeWidth,
     });
   };
@@ -183,16 +185,28 @@ export class Mainwork extends Component {
     // console.log(this.state.file);
     // console.log(this.state.fileObject);
     // if changewidth and changeheight fits
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
     canvas.width = this.state.changeWidth;
     canvas.height = this.state.changeHeight;
-    ctx.drawImage(document.getElementById('thumbnail1'), 0, 0, this.state.changeWidth, this.state.changeHeight);
+    ctx.drawImage(
+      document.getElementById("thumbnail1"),
+      0,
+      0,
+      this.state.changeWidth,
+      this.state.changeHeight
+    );
     const resultURL = canvas.toDataURL("image/" + this.state.extension);
-    const a = document.createElement("a");
-    a.href = resultURL;
-    a.setAttribute("download", this.state.name);
-    a.click();
+    if (window.navigator.msSaveBlob) {
+      canvas.toBlob(function (blob) {
+        window.navigator.msSaveOrOpenBlob(blob, this.state.name);
+      }, "image/png");
+    } else {
+      const a = document.createElement("a");
+      a.href = resultURL;
+      a.setAttribute("download", this.state.name);
+      a.click();
+    }
   }
 
   render() {
@@ -204,7 +218,7 @@ export class Mainwork extends Component {
         <div
           className={`dropzone-dummy ${
             this.state.highlight ? "Highlight" : ""
-            }`}
+          }`}
         >
           <img alt="upload" className="Icon" src="./img/cloud.png" />
           <input
@@ -260,20 +274,23 @@ export class Mainwork extends Component {
               <button
                 className={`details-button ${
                   this.state.fixedRatio ? "details-button-clicked" : ""
-                  }`}
+                }`}
                 onClick={this.handleFixed}
               >
                 비율 고정하기
               </button>
               <br />
-              <button className="details-button details-download" onClick={this.handleDownload}>
+              <button
+                className="details-button details-download"
+                onClick={this.handleDownload}
+              >
                 다운로드
               </button>
             </div>
           </div>
         ) : (
-            <></>
-          )}
+          <></>
+        )}
       </div>
     );
   }
