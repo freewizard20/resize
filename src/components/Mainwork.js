@@ -17,7 +17,7 @@ export class Mainwork extends Component {
       fixedRatio: false,
       fileObject: {},
       file: "",
-      extension: ""
+      extension: "",
     };
 
     this.fileInputRef = React.createRef();
@@ -108,7 +108,9 @@ export class Mainwork extends Component {
             changeWidth: "",
             file: fr.result,
             fileObject: array[0],
-            extension: this.state.name.substr(this.state.name.length - 3).toLowerCase()
+            extension: this.state.name
+              .substr(this.state.name.length - 3)
+              .toLowerCase(),
           };
         });
       };
@@ -183,18 +185,22 @@ export class Mainwork extends Component {
     // console.log(this.state.file);
     // console.log(this.state.fileObject);
     // if changewidth and changeheight fits
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
     canvas.width = this.state.changeWidth;
     canvas.height = this.state.changeHeight;
-    ctx.drawImage(document.getElementById('thumbnail1'), 0, 0, this.state.changeWidth, this.state.changeHeight);
+    ctx.drawImage(
+      document.getElementById("thumbnail1"),
+      0,
+      0,
+      this.state.changeWidth,
+      this.state.changeHeight
+    );
     const resultURL = canvas.toDataURL("image/" + this.state.extension);
     if (window.navigator.msSaveBlob) {
-      // ie
-      canvas.toBlob((result) => {
-        console.log(result);
-        window.navigator.msSaveOrOpenBlob(result, this.state.name);
-      })
+      canvas.toBlob(function (blob) {
+        window.navigator.msSaveOrOpenBlob(blob, this.state.name);
+      }, "image/png");
     } else {
       const a = document.createElement("a");
       a.href = resultURL;
@@ -274,7 +280,10 @@ export class Mainwork extends Component {
                 비율 고정하기
               </button>
               <br />
-              <button className="details-button details-download" onClick={this.handleDownload}>
+              <button
+                className="details-button details-download"
+                onClick={this.handleDownload}
+              >
                 다운로드
               </button>
             </div>
