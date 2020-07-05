@@ -189,10 +189,18 @@ export class Mainwork extends Component {
     canvas.height = this.state.changeHeight;
     ctx.drawImage(document.getElementById('thumbnail1'), 0, 0, this.state.changeWidth, this.state.changeHeight);
     const resultURL = canvas.toDataURL("image/" + this.state.extension);
-    const a = document.createElement("a");
-    a.href = resultURL;
-    a.setAttribute("download", this.state.name);
-    a.click();
+    if (window.navigator.msSaveBlob) {
+      // ie
+      canvas.toBlob((result) => {
+        console.log(result);
+        window.navigator.msSaveOrOpenBlob(result, this.state.name);
+      })
+    } else {
+      const a = document.createElement("a");
+      a.href = resultURL;
+      a.setAttribute("download", this.state.name);
+      a.click();
+    }
   }
 
   render() {
