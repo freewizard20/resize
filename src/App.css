@@ -33,3 +33,11 @@ input, button:focus{
   min-height: 500px;
   padding: 30px;
 }
+
+.static-content{
+  line-height:1.5em;
+}
+
+.tos-list{
+  list-style: disc;
+}
