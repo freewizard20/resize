@@ -22,6 +22,19 @@ window.mobileAndTabletCheck = function () {
 };
 
 function Homepage() {
+  const handleFavorites = () => {
+    if (window.sidebar && window.sidebar.addPanel) { // Mozilla Firefox Bookmark
+      window.sidebar.addPanel(document.title, window.location.href, '');
+    } else if (window.external && ('AddFavorite' in window.external)) { // IE Favorite
+      window.external.AddFavorite(window.location.href, document.title);
+    } else if (window.opera && window.print) { // Opera Hotlist
+      this.title = document.title;
+      return true;
+    } else { // webkit - safari/chrome
+      alert((navigator.userAgent.toLowerCase().indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL') + ' + D 를 눌러보세요!');
+    }
+  }
+
   return (
     <>
       <div>
@@ -30,14 +43,14 @@ function Homepage() {
             {/* <div className="header-filler"></div> */}
             <div className="card ad-card-1"></div>
             {!window.mobileAndTabletCheck() ? (
-              <button id="favorite-button" className="add-button favorites">
+              <button id="favorite-button" className="add-button favorites" onClick={handleFavorites}>
                 즐겨찾기에 추가
               </button>
             ) : (
-              <button id="home-button" className="add-button favorites">
-                홈 화면에 추가
-              </button>
-            )}
+                <button id="home-button" className="add-button favorites">
+                  홈 화면에 추가
+                </button>
+              )}
             <Mainwork />
             <div className="card ad-card-2"></div>
           </section>
