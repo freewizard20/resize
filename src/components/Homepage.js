@@ -4,6 +4,7 @@ import MobileDetect from "mobile-detect";
 import "./Homepage.css";
 import Mainwork from "./Mainwork";
 import Header from "./nav/Header";
+import Adsense from "./Adsense";
 
 window.mobileAndTabletCheck = function () {
   let check = false;
@@ -42,15 +43,7 @@ function Homepage() {
           <section>
             {/* 애드센스 광고 */}
             <div className="card ad-card-1"><p>
-              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-              <ins className="adsbygoogle"
-                style={{ display: "block" }}
-                data-ad-client="ca-pub-5388808722955556"
-                data-ad-slot="7096701020"
-                data-ad-format="auto"></ins>
-              <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-              </script>
+              <Adsense />
             </p></div>
 
             {!window.mobileAndTabletCheck() ? (
@@ -67,15 +60,7 @@ function Homepage() {
 
             {/* 애드센스 광고 */}
             <div className="card ad-card-2"><p>
-              <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-              <ins className="adsbygoogle"
-                style={{ display: "block" }}
-                data-ad-client="ca-pub-5388808722955556"
-                data-ad-slot="7096701020"
-                data-ad-format="auto"></ins>
-              <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-              </script>
+              <Adsense />
             </p></div>
 
           </section>
