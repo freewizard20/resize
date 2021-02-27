@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <footer>
-      <span className="copyright">© 2020 fweasy</span>
+      <span className="copyright">© 2020 freewizard.net</span>
       <ul className="footer-link">
         <li>
           <Link to="/about">About</Link>

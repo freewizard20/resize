@@ -43,7 +43,8 @@ function Homepage() {
           <section>
             {/* 애드센스 광고 */}
             <div className="card ad-card-1"><p>
-              <Adsense />
+              {/* <Adsense /> */}
+              <img style={{width:'100%'}} src="./img/picture.png"></img>
             </p></div>
 
             {!window.mobileAndTabletCheck() ? (
@@ -60,7 +61,8 @@ function Homepage() {
 
             {/* 애드센스 광고 */}
             <div className="card ad-card-2"><p>
-              <Adsense />
+              {/* <Adsense /> */}
+              <img style={{width:'100%'}} src="./img/picture.png"></img>
             </p></div>
 
           </section>
